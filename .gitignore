@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .superpowers
+docs/superpowers/plans
+
+package-lock.json

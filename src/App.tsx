@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { Edit3, Flower2, PlusCircle, ReceiptText } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
-import { FloorCard } from './components/FloorCard';
+import { FlowerItem } from './components/FlowerItem';
 import { useOrder } from './hooks/useOrder';
 
 function cn(...inputs: ClassValue[]) {
@@ -13,8 +13,6 @@ function App() {
     order,
     totals,
     setCustomerName,
-    addFloor,
-    removeFloor,
     addItem,
     removeItem,
     updateItem,
@@ -23,69 +21,66 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-32">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-md mx-auto flex items-center gap-2">
-          <div className="bg-blue-600 p-2 rounded-lg text-white">
-            <Flower2 size={24} />
+      {/* Header - Not Sticky as per Spec */}
+      <header className="bg-white px-4 py-8 border-b border-slate-100">
+        <div className="max-w-md mx-auto flex flex-col items-center gap-3">
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-3 rounded-2xl text-white shadow-lg shadow-blue-200">
+            <Flower2 size={32} />
           </div>
-          <h1 className="text-xl font-bold text-slate-900">Mừng Trung Flowers</h1>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight text-center">Mừng Trung Flowers</h1>
+          <p className="text-slate-400 text-sm font-medium">Hệ thống tính tiền hoa chuyên nghiệp</p>
         </div>
       </header>
 
-      <main className="max-w-md mx-auto p-4">
+      <main className="max-w-md mx-auto p-4 animate-in fade-in duration-500">
         {/* Customer Input */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 mb-6">
-          <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Khách hàng</label>
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-8">
+          <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Tên khách hàng</label>
           <input
             type="text"
             value={order.customerName}
             onChange={(e) => setCustomerName(e.target.value)}
             placeholder="Nhập tên khách hàng..."
-            className="w-full border-none text-xl font-medium outline-none text-slate-800 placeholder:text-slate-300"
+            className="w-full border-none text-2xl font-bold outline-none text-slate-800 placeholder:text-slate-200"
           />
         </div>
 
         {order.isCollapsed ? (
           /* Summary View */
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+          <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200 overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="bg-slate-50 px-5 py-4 border-b border-slate-100 flex justify-between items-center">
               <h2 className="font-bold text-slate-800 flex items-center gap-2">
-                <ReceiptText size={18} className="text-blue-600" />
-                Tóm tắt đơn hàng
+                <ReceiptText size={20} className="text-blue-600" />
+                Đơn hàng hoàn tất
               </h2>
               <button
                 onClick={toggleCollapse}
-                className="text-blue-600 text-sm font-medium flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-blue-200 shadow-sm"
+                className="text-blue-600 text-sm font-bold flex items-center gap-1.5 bg-white px-4 py-1.5 rounded-full border border-blue-100 shadow-sm hover:bg-blue-50 transition-colors"
               >
                 <Edit3 size={14} /> Chỉnh sửa
               </button>
             </div>
-            <div className="p-4">
-              <div className="mb-4">
-                <p className="text-sm text-slate-500">Khách hàng:</p>
-                <p className="text-lg font-bold text-slate-800">{order.customerName || '(Trống)'}</p>
+            <div className="p-6">
+              <div className="mb-6 pb-4 border-b border-dashed border-slate-200">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Khách hàng</p>
+                <p className="text-xl font-black text-blue-900">{order.customerName || '(Chưa nhập tên)'}</p>
               </div>
 
               <div className="space-y-4">
-                {order.floors.map((floor, idx) => (
-                  <div key={floor.id} className="border-t border-slate-100 pt-3">
-                    <div className="flex justify-between items-baseline mb-2">
-                      <h3 className="font-bold text-slate-700">{floor.name}</h3>
-                      <span className="font-bold text-slate-800">{totals.floorTotals[idx].toLocaleString()} đ</span>
+                {order.items.map((item, idx) => (
+                  <div key={item.id} className="relative pl-4 border-l-2 border-blue-100">
+                    <div className="flex justify-between items-start mb-1">
+                      <h3 className="font-bold text-slate-800">{idx + 1}. {item.type || 'Loại hoa chưa đặt tên'}</h3>
                     </div>
-                    <ul className="space-y-1">
-                      {floor.items.map(item => (
-                        <li key={item.id} className="text-sm text-slate-600 flex justify-between">
-                          <span>
-                            {item.type}
-                            {item.label && <span className="text-slate-400"> ({item.label})</span>}:
-                            <span className="ml-1 font-medium">{item.trays} khay × {item.pots} chậu</span>
-                          </span>
-                          <span className="text-slate-400">{(item.trays * item.pots * item.unitPrice).toLocaleString()} đ</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="flex flex-col text-sm text-slate-500">
+                      <span className="font-medium">
+                        {item.trays} khay × {item.pots} chậu × {item.unitPrice.toLocaleString()} kus
+                      </span>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-bold uppercase">Thành tiền</span>
+                        <span className="font-black text-slate-900">{(item.trays * item.pots * item.unitPrice).toLocaleString()} kus</span>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -93,56 +88,60 @@ function App() {
           </div>
         ) : (
           /* Edit View */
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
-            {order.floors.map((floor, idx) => (
-              <FloorCard
-                key={floor.id}
-                floor={floor}
-                floorTotal={totals.floorTotals[idx]}
-                onAddItem={() => addItem(floor.id)}
-                onRemoveItem={(itemId) => removeItem(floor.id, itemId)}
-                onUpdateItem={(itemId, updates) => updateItem(floor.id, itemId, updates)}
-                onRemoveFloor={() => removeFloor(floor.id)}
+          <div className="space-y-4">
+            <div className="flex justify-between items-center px-1 mb-2">
+              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Danh sách loại hoa</h2>
+              <span className="text-[10px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full">{order.items.length} LOẠI</span>
+            </div>
+            
+            {order.items.map((item) => (
+              <FlowerItem
+                key={item.id}
+                item={item}
+                onUpdate={(updates) => updateItem(item.id, updates)}
+                onRemove={() => removeItem(item.id)}
               />
             ))}
 
             <button
-              onClick={addFloor}
-              className="w-full py-4 mb-8 flex items-center justify-center gap-2 text-slate-600 bg-white border-2 border-dashed border-slate-200 rounded-xl font-bold text-sm hover:border-slate-300 transition-colors"
+              onClick={addItem}
+              className="w-full py-5 flex items-center justify-center gap-3 text-blue-600 bg-blue-50/50 border-2 border-dashed border-blue-200 rounded-2xl font-black text-sm hover:bg-blue-50 hover:border-blue-300 transition-all active:scale-[0.99]"
             >
-              <PlusCircle size={20} /> Thêm Tầng Mới
+              <PlusCircle size={20} /> Thêm Loại Hoa Mới
             </button>
           </div>
         )}
       </main>
 
       {/* Sticky Bottom Summary */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-20">
+      <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-slate-200 p-3 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] z-20">
         <div className="max-w-md mx-auto">
-          <div className="flex justify-between items-end mb-4">
+          <div className="flex justify-between items-center mb-3">
             <div>
-              <p className="text-sm font-medium text-slate-500">Tổng cộng đơn hàng:</p>
-              <p className="text-3xl font-black text-slate-900 leading-none">
-                {totals.grandTotal.toLocaleString()} <span className="text-lg">đ</span>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tổng cộng</p>
+              <p className="text-2xl font-black text-slate-900 leading-none mt-1">
+                {totals.grandTotal.toLocaleString()} <span className="text-xs font-bold text-slate-400">kus</span>
               </p>
             </div>
-            {!order.isCollapsed && (
-              <p className="text-xs text-slate-400 font-medium">
-                {order.floors.length} tầng, {order.floors.reduce((acc, f) => acc + f.items.length, 0)} loại hoa
-              </p>
-            )}
           </div>
 
           <button
             onClick={toggleCollapse}
             className={cn(
-              "w-full py-4 rounded-xl font-bold text-lg shadow-lg transition-all active:scale-[0.98]",
+              "w-full py-2.5 rounded-xl font-black text-base shadow-lg transition-all active:scale-[0.97] flex items-center justify-center gap-2",
               order.isCollapsed
-                ? "bg-slate-800 text-white"
-                : "bg-green-600 text-white"
+                ? "bg-slate-900 text-white shadow-slate-200"
+                : "bg-green-600 text-white shadow-green-200"
             )}
           >
-            {order.isCollapsed ? 'Quay lại chỉnh sửa' : 'Xác nhận & Hoàn tất'}
+            {order.isCollapsed ? (
+              <>
+                <Edit3 size={20} />
+                Quay lại chỉnh sửa
+              </>
+            ) : (
+              'Xác nhận & Hoàn tất'
+            )}
           </button>
         </div>
       </footer>
