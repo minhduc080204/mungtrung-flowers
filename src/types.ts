@@ -1,29 +1,15 @@
 export interface FlowerItem {
   id: string;
-  type: string;
+  type: string;        // Changed to string for manual input
   trays: number;      // Số khay
   pots: number;       // Số chậu trong mỗi khay
   unitPrice: number;  // Đơn giá mỗi chậu
-  label: string;      // Tên hoa trong chậu
-}
-
-export interface Floor {
-  id: string;
-  name: string;
-  items: FlowerItem[];
 }
 
 export interface OrderState {
   customerName: string;
-  floors: Floor[];
+  items: FlowerItem[]; // Flattened: no more floors
   isCollapsed: boolean;
 }
 
-export const FLOWER_TYPES = [
-  "Thược dược",
-  "Cúc đại đóa",
-  "Hoa ly",
-  "Hoa hồng",
-  "Hoa lan",
-  "Cúc họa mi"
-];
+export const FLOWER_TYPES = []; // No longer needed for dropdown but can keep empty for now or remove
