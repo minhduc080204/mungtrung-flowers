@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import { OrderState, Floor, FlowerItem } from '../types';
+import type { OrderState, FlowerItem } from '../types';
 
 export function useOrder() {
   const [order, setOrder] = useState<OrderState>({
@@ -20,16 +20,13 @@ export function useOrder() {
   });
 
   const totals = useMemo(() => {
-    let total = 0;
     const floorTotals = order.floors.map(floor => {
-      const floorTotal = floor.items.reduce((sum, item) => 
+      return floor.items.reduce((sum, item) => 
         sum + (item.trays * item.pots * item.unitPrice), 0);
-      total += floorTotal;
-      return floorTotal;
     });
-    return { floorTotals, grandTotal: total };
+    const grandTotal = floorTotals.reduce((sum, current) => sum + current, 0);
+    return { floorTotals, grandTotal };
   }, [order.floors]);
-
   const setCustomerName = useCallback((name: string) => {
     setOrder(prev => ({ ...prev, customerName: name }));
   }, []);
@@ -56,17 +53,24 @@ export function useOrder() {
   }, []);
 
   const removeFloor = useCallback((floorId: string) => {
-    setOrder(prev => ({
-      ...prev,
-      floors: prev.floors.filter(f => f.id !== floorId)
-    }));
+    setOrder(prev => {
+      const remainingFloors = prev.floors.filter(f => f.id !== floorId);
+      const updatedFloors = remainingFloors.map((f, idx) => ({
+        ...f,
+        name: `Tầng ${idx + 1}`
+      }));
+      return {
+        ...prev,
+        floors: updatedFloors
+      };
+    });
   }, []);
 
   const addItem = useCallback((floorId: string) => {
     setOrder(prev => ({
       ...prev,
-      floors: prev.floors.map(f => 
-        f.id === floorId 
+      floors: prev.floors.map(f =>
+        f.id === floorId
           ? {
               ...f,
               items: [
@@ -89,8 +93,8 @@ export function useOrder() {
   const removeItem = useCallback((floorId: string, itemId: string) => {
     setOrder(prev => ({
       ...prev,
-      floors: prev.floors.map(f => 
-        f.id === floorId 
+      floors: prev.floors.map(f =>
+        f.id === floorId
           ? { ...f, items: f.items.filter(i => i.id !== itemId) }
           : f
       )
@@ -100,8 +104,8 @@ export function useOrder() {
   const updateItem = useCallback((floorId: string, itemId: string, updates: Partial<FlowerItem>) => {
     setOrder(prev => ({
       ...prev,
-      floors: prev.floors.map(f => 
-        f.id === floorId 
+      floors: prev.floors.map(f =>
+        f.id === floorId
           ? {
               ...f,
               items: f.items.map(i => i.id === itemId ? { ...i, ...updates } : i)
@@ -115,15 +119,15 @@ export function useOrder() {
     setOrder(prev => ({ ...prev, isCollapsed: !prev.isCollapsed }));
   }, []);
 
-  return { 
-    order, 
-    totals, 
-    setCustomerName, 
-    addFloor, 
-    removeFloor, 
-    addItem, 
-    removeItem, 
-    updateItem, 
-    toggleCollapse 
+  return {
+    order,
+    totals,
+    setCustomerName,
+    addFloor,
+    removeFloor,
+    addItem,
+    removeItem,
+    updateItem,
+    toggleCollapse
   };
 }
