@@ -19,7 +19,7 @@ interface FlowerItem {
   id: string;
   type: string;        // Loại hoa (select)
   trays: number;      // Số khay
-  pots: number;       // Số chậu
+  pots: number;       // Số chậu trong mỗi khay
   unitPrice: number;  // Đơn giá mỗi chậu
   label: string;      // Tên hoa trong chậu (ghi chú màu sắc/đặc điểm)
 }
@@ -59,6 +59,6 @@ interface OrderState {
    - Form nhập liệu hiện lại đầy đủ để thay đổi thông tin.
 
 ## Kiểm thử & Xác nhận
-- Kiểm tra tính toán: `Thành tiền = số chậu * đơn giá`. `Tổng tiền = Σ Thành tiền`.
+- Kiểm tra tính toán: `Thành tiền mỗi tầng = số khay * số chậu * đơn giá`. `Tổng tiền = Σ Thành tiền mỗi tầng`.
 - Kiểm tra Responsive: Đảm bảo giao diện không bị vỡ trên các màn hình từ 320px trở lên.
 - Kiểm tra thao tác: Các ô input `number` phải gọi bàn phím số trên mobile.
