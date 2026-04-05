@@ -12,7 +12,7 @@ export const FlowerItem: React.FC<Props> = ({ item, onUpdate, onRemove }) => {
   return (
     <div className="bg-white p-4 rounded-xl border border-slate-200 mb-4 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="mb-3">
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Loại hoa (VD: Thược dược đỏ)</label>
+        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Loại hoa</label>
         <input
           type="text"
           value={item.type}
@@ -22,37 +22,37 @@ export const FlowerItem: React.FC<Props> = ({ item, onUpdate, onRemove }) => {
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-3 mb-4">
+      <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Số khay</label>
+          <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Khay</label>
           <input
             type="number"
             inputMode="numeric"
-            value={item.trays || ''}
+            value={item.trays || 0}
             onChange={(e) => onUpdate({ trays: Number(e.target.value) })}
-            placeholder="0"
+            placeholder="Số lượng khay..."
             className="w-full p-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none text-center bg-slate-50"
           />
         </div>
         <div>
-          <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Chậu/khay</label>
+          <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Chậu</label>
           <input
             type="number"
             inputMode="numeric"
-            value={item.pots || ''}
+            value={item.pots || 0}
             onChange={(e) => onUpdate({ pots: Number(e.target.value) })}
-            placeholder="0"
+            placeholder="Số lượng chậu..."
             className="w-full p-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none text-center bg-slate-50"
           />
         </div>
-        <div>
+        <div className="col-span-2">
           <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Đơn giá</label>
           <input
             type="number"
             inputMode="numeric"
-            value={item.unitPrice || ''}
+            value={item.unitPrice || 0}
             onChange={(e) => onUpdate({ unitPrice: Number(e.target.value) })}
-            placeholder="0"
+            placeholder="Đơn giá..."
             className="w-full p-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none text-center font-bold text-green-700 bg-slate-50"
           />
         </div>

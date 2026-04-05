@@ -10,6 +10,7 @@ function cn(...inputs: ClassValue[]) {
 
 function App() {
   const {
+    CURRENTCY_DEFAULT,
     order,
     totals,
     setCustomerName,
@@ -74,11 +75,11 @@ function App() {
                     </div>
                     <div className="flex flex-col text-sm text-slate-500">
                       <span className="font-medium">
-                        {item.trays} khay × {item.pots} chậu × {item.unitPrice.toLocaleString()} kus
+                        {item.trays} × {item.pots} × {item.unitPrice.toLocaleString()}
                       </span>
                       <div className="flex justify-between items-center mt-1">
                         <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded font-bold uppercase">Thành tiền</span>
-                        <span className="font-black text-slate-900">{(item.trays * item.pots * item.unitPrice).toLocaleString()} kus</span>
+                        <span className="font-black text-slate-900">{(item.trays * item.pots * item.unitPrice).toLocaleString()} {CURRENTCY_DEFAULT}</span>
                       </div>
                     </div>
                   </div>
@@ -120,7 +121,7 @@ function App() {
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tổng cộng</p>
               <p className="text-2xl font-black text-slate-900 leading-none mt-1">
-                {totals.grandTotal.toLocaleString()} <span className="text-xs font-bold text-slate-400">kus</span>
+                {totals.grandTotal.toLocaleString()} <span className="text-xs font-bold text-slate-400">{CURRENTCY_DEFAULT}</span>
               </p>
             </div>
           </div>
