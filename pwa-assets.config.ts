@@ -13,6 +13,6 @@ export default defineConfig({
     }
   },
   images: [
-    'public/pwa-512x512.png',
+    'logo.svg',
   ]
 })
