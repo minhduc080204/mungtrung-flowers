@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "generate-pwa-assets": "pwa-assets-generator logo.svg && move /Y *.png public\\ && move /Y favicon.ico public\\",
-    "build": "npm run generate-pwa-assets && tsc -b && vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
