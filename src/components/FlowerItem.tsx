@@ -1,5 +1,5 @@
 import React from 'react';
-import { type FlowerItem as FlowerItemType } from '../types';
+import { CURRENTCY_DEFAULT, type FlowerItem as FlowerItemType } from '../types';
 import { Trash2 } from 'lucide-react';
 
 interface Props {
@@ -61,7 +61,7 @@ export const FlowerItem: React.FC<Props> = ({ item, onUpdate, onRemove }) => {
       <div className="flex justify-between items-center pt-3 border-t border-slate-100">
         <div className="text-sm font-bold text-slate-800">
           <span className="text-slate-500 font-normal mr-1">Thành tiền:</span>
-          {(item.trays * item.pots * item.unitPrice).toLocaleString()} kus
+          {(item.trays * item.pots * item.unitPrice).toLocaleString()} {CURRENTCY_DEFAULT}
         </div>
         <button
           onClick={onRemove}

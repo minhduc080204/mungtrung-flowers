@@ -3,6 +3,7 @@ import { Edit3, Flower2, PlusCircle, ReceiptText } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import { FlowerItem } from './components/FlowerItem';
 import { useOrder } from './hooks/useOrder';
+import { CURRENTCY_DEFAULT } from './types';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -10,7 +11,6 @@ function cn(...inputs: ClassValue[]) {
 
 function App() {
   const {
-    CURRENTCY_DEFAULT,
     order,
     totals,
     setCustomerName,

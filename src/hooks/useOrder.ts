@@ -2,7 +2,6 @@ import { useState, useMemo, useCallback } from 'react';
 import type { OrderState, FlowerItem } from '../types';
 
 export function useOrder() {
-  const CURRENTCY_DEFAULT = 'CZK';
   const [order, setOrder] = useState<OrderState>({
     customerName: '',
     items: [{
@@ -60,7 +59,6 @@ export function useOrder() {
   }, []);
 
   return {
-    CURRENTCY_DEFAULT,
     order,
     totals,
     setCustomerName,

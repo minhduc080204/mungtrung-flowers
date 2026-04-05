@@ -11,3 +11,5 @@ export interface OrderState {
   items: FlowerItem[];
   isCollapsed: boolean;
 }
+
+export const CURRENTCY_DEFAULT = 'CZK';
