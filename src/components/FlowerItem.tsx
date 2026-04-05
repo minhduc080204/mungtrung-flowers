@@ -31,7 +31,7 @@ export const FlowerItem: React.FC<Props> = ({ item, onUpdate, onRemove }) => {
             value={item.trays || 0}
             onChange={(e) => onUpdate({ trays: Number(e.target.value) })}
             placeholder="Số lượng khay..."
-            className="w-full p-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none text-center bg-slate-50"
+            className="w-full p-2.5 border border-slate-200 rounded-lg text-base focus:ring-2 focus:ring-blue-500 outline-none text-center bg-slate-50"
           />
         </div>
         <div>
@@ -42,7 +42,7 @@ export const FlowerItem: React.FC<Props> = ({ item, onUpdate, onRemove }) => {
             value={item.pots || 0}
             onChange={(e) => onUpdate({ pots: Number(e.target.value) })}
             placeholder="Số lượng chậu..."
-            className="w-full p-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none text-center bg-slate-50"
+            className="w-full p-2.5 border border-slate-200 rounded-lg text-base focus:ring-2 focus:ring-blue-500 outline-none text-center bg-slate-50"
           />
         </div>
         <div className="col-span-2">
@@ -53,13 +53,13 @@ export const FlowerItem: React.FC<Props> = ({ item, onUpdate, onRemove }) => {
             value={item.unitPrice || 0}
             onChange={(e) => onUpdate({ unitPrice: Number(e.target.value) })}
             placeholder="Đơn giá..."
-            className="w-full p-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none text-center font-bold text-green-700 bg-slate-50"
+            className="w-full p-2.5 border border-slate-200 rounded-lg text-base focus:ring-2 focus:ring-blue-500 outline-none text-center font-bold text-green-700 bg-slate-50"
           />
         </div>
       </div>
 
       <div className="flex justify-between items-center pt-3 border-t border-slate-100">
-        <div className="text-sm font-bold text-slate-800">
+        <div className="text-base font-bold text-slate-800">
           <span className="text-slate-500 font-normal mr-1">Thành tiền:</span>
           {(item.trays * item.pots * item.unitPrice).toLocaleString()} {CURRENTCY_DEFAULT}
         </div>
