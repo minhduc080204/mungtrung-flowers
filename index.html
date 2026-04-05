@@ -6,9 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2563eb" />
     <title>Mừng Trứng Flowers</title>
+    <style>
+      #root:empty {
+        background-color: #f8fafc;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      .loader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        animation: fadeIn 0.5s ease-out;
+      }
+      .logo-pulse {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #2563eb 0%, #4338ca 100%);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
+        animation: pulse 2s infinite ease-in-out;
+      }
+      .logo-pulse svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+      }
+      .app-name {
+        font-size: 20px;
+        font-weight: 900;
+        color: #0f172a;
+        letter-spacing: -0.025em;
+      }
+      .loading-bar {
+        width: 120px;
+        height: 4px;
+        background-color: #e2e8f0;
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+      }
+      .loading-bar::after {
+        content: "";
+        position: absolute;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(90deg, #2563eb, #4338ca);
+        animation: loading 1.5s infinite ease-in-out;
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes loading {
+        from { left: -40%; }
+        to { left: 100%; }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loader-container">
+        <div class="logo-pulse">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flower2"><path d="M12 2v8"/><path d="m4.93 4.93 2.83 2.83"/><path d="M2 12h8"/><path d="m4.93 19.07 2.83-2.83"/><path d="M12 22v-8"/><path d="m19.07 19.07-2.83-2.83"/><path d="M22 12h-8"/><path d="m19.07 4.93-2.83 2.83"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="app-name">Mừng Trứng Flowers</div>
+        <div class="loading-bar"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
