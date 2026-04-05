@@ -13,6 +13,6 @@ export default defineConfig({
     }
   },
   images: [
-    'logo.svg',
+    'assets/logo.svg',
   ]
 })
