@@ -5,11 +5,11 @@ export default defineConfig({
     ...minimalPreset,
     apple: {
       ...minimalPreset.apple,
-      resizeOptions: { background: '#ffffff', fit: 'contain' }
+      resizeOptions: { background: '#2563eb', fit: 'contain' }
     },
     maskable: {
       ...minimalPreset.maskable,
-      resizeOptions: { background: '#ffffff', fit: 'contain' }
+      resizeOptions: { background: '#2563eb', fit: 'contain' }
     }
   },
   images: [

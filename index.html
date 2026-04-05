@@ -7,20 +7,20 @@
     <meta name="theme-color" content="#2563eb" />
     <title>Mừng Trứng Flowers</title>
     <style>
-      #root:empty {
-        background-color: #f8fafc;
+      .loader-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
         height: 100vh;
+        background-color: #f8fafc;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-family: system-ui, -apple-system, sans-serif;
-      }
-      .loader-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         gap: 20px;
+        z-index: 9999;
+        font-family: system-ui, -apple-system, sans-serif;
         animation: fadeIn 0.5s ease-out;
       }
       .logo-pulse {
