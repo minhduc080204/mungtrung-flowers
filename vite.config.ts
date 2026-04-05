@@ -12,9 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.png', 'apple-touch-icon-180x180.png', 'maskable-icon-512x512.png'],
       manifest: {
-        name: 'Mừng Trứng Flowers',
+        name: 'Mừng Trung Flowers',
         short_name: 'MT Flowers',
-        description: 'Ứng dụng tính hoa Mừng Trứng chuyên nghiệp',
+        description: 'Ứng dụng tính hoa Mừng Trung chuyên nghiệp',
         theme_color: '#2563eb',
         background_color: '#ffffff',
         display: 'standalone',
