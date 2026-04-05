@@ -2,13 +2,14 @@ import { useState, useMemo, useCallback } from 'react';
 import type { OrderState, FlowerItem } from '../types';
 
 export function useOrder() {
+  const CURRENTCY_DEFAULT = 'CZK';
   const [order, setOrder] = useState<OrderState>({
     customerName: '',
     items: [{
       id: crypto.randomUUID(),
       type: '',
-      trays: 0,
-      pots: 0,
+      trays: 1,
+      pots: 1,
       unitPrice: 0
     }],
     isCollapsed: false
@@ -32,8 +33,8 @@ export function useOrder() {
         {
           id: crypto.randomUUID(),
           type: '',
-          trays: 0,
-          pots: 0,
+          trays: 1,
+          pots: 1,
           unitPrice: 0
         }
       ]
@@ -59,6 +60,7 @@ export function useOrder() {
   }, []);
 
   return {
+    CURRENTCY_DEFAULT,
     order,
     totals,
     setCustomerName,
